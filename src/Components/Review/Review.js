@@ -51,7 +51,7 @@ const Review = () => {
     formData.append("image", data.image[0]);
     formData.append("data", jsonData);
 
-    fetch('http://localhost:8080/addReview', {
+    fetch('https://creative-agency-simple.herokuapp.com/addReview', {
         method: 'POST',
         body: formData
     })
