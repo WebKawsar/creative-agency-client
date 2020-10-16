@@ -46,7 +46,7 @@ const Review = () => {
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = (data) => {
 
-    fetch("http://localhost:8080/addReview", {
+    fetch("https://creative-agency-simple.herokuapp.com/addReview", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {

@@ -16,7 +16,7 @@ const AdminServiceList = () => {
 
   useEffect(() => {
 
-    fetch(`http://localhost:8080/allOrders`)
+    fetch(`https://creative-agency-simple.herokuapp.com/allOrders`)
       .then((response) => response.json())
       .then((result) => setOrders(result));
       
@@ -24,7 +24,7 @@ const AdminServiceList = () => {
 
   const handleStatus = (event, id) => {
 
-    fetch(`http://localhost:8080/updateSurviceById/${id}`, {
+    fetch(`https://creative-agency-simple.herokuapp.com/updateSurviceById/${id}`, {
       method: "PATCH",
       body: JSON.stringify({ status: event.value }),
       headers: {

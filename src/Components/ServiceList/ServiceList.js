@@ -41,7 +41,7 @@ const ServiceList = () => {
 
   useEffect(() => {
 
-    fetch(`http://localhost:8080/orderByUser/${loggedInUser.email}`)
+    fetch(`https://creative-agency-simple.herokuapp.com/orderByUser/${loggedInUser.email}`)
       .then((response) => response.json())
       .then((result) => setOrders(result));
 

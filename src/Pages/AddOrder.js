@@ -59,7 +59,7 @@ const AddOrder = () => {
     const [service, setService] = useState({});
     useEffect(() => {
   
-      fetch(`http://localhost:8080/serviceById/${serviceId}`)
+      fetch(`https://creative-agency-simple.herokuapp.com/serviceById/${serviceId}`)
       .then(response => response.json())
       .then(result => setService(result))
   
@@ -81,7 +81,7 @@ const AddOrder = () => {
         formData.append("image", data.image[0]);
         formData.append("data", jsonData);
   
-        fetch('http://localhost:8080/addOrder', {
+        fetch('https://creative-agency-simple.herokuapp.com/addOrder', {
             method: 'POST',
             body: formData
         })
