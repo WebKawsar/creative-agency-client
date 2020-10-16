@@ -55,7 +55,7 @@ const MakeAdmin = () => {
         .then(response => response.json())
         .then(result => {
             
-            console.log(result);
+            
             if(result){
                 alert("You have successfully added an admin")
                 

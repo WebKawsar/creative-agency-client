@@ -13,26 +13,36 @@ const options = [
 
 const AdminServiceList = () => {
   const [orders, setOrders] = useState([]);
+
   useEffect(() => {
+
     fetch(`http://localhost:8080/allOrders`)
       .then((response) => response.json())
       .then((result) => setOrders(result));
+      
   }, []);
 
   const handleStatus = (event, id) => {
+
     fetch(`http://localhost:8080/updateSurviceById/${id}`, {
       method: "PATCH",
       body: JSON.stringify({ status: event.value }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
-      },
+      }
     })
       .then((response) => response.json())
       .then((data) => {
+
         if (data) {
           alert("You have successfully updated an order status");
         }
+        else{
+          alert("Failed to data load on server");
+        }
+
       });
+
   };
   const defaultOption = options[0];
 

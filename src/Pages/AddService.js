@@ -71,8 +71,9 @@ const AddService = () => {
     })
       .then((response) => response.json())
       .then((result) => {
+        
         if (result) {
-          console.log(result);
+          
           alert("Successfully added service");
         }
       });
