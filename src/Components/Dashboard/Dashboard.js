@@ -12,6 +12,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import { Link } from "react-router-dom";
 import ShoppingCart from "@material-ui/icons/ShoppingCart";
 import Storage from "@material-ui/icons/Storage";
+import ListIcon from "@material-ui/icons/List";
 import Add from "@material-ui/icons/Add";
 import SmsIcon from "@material-ui/icons/Sms";
 import { Box } from "@material-ui/core";
@@ -54,6 +55,10 @@ const useStyles = makeStyles((theme) => ({
       textDecoration: "none",
     },
   },
+
+
+
+
 }));
 
 const Dashboard = (props) => {
@@ -62,7 +67,7 @@ const Dashboard = (props) => {
   // const [isAdmin, setIsAdmin] = useState(false);
   // useEffect(() => {
 
-  //   fetch(`https://creative-agency-simple.herokuapp.com/admin/${loggedInUser.email}`)
+  //   fetch(`http://localhost:8080/admin/${loggedInUser.email}`)
   //   .then(response => response.json())
   //   .then(data => {
   //     setIsAdmin(!isAdmin)
@@ -71,7 +76,6 @@ const Dashboard = (props) => {
 
   // }, [])
 
-  console.log(loggedInUser);
 
   const classes = useStyles();
   return (
@@ -79,9 +83,11 @@ const Dashboard = (props) => {
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
+
           <Typography variant="h6" noWrap>
             Dashboard
           </Typography>
+          
         </Toolbar>
       </AppBar>
       <Drawer
@@ -144,7 +150,7 @@ const Dashboard = (props) => {
           <Link className={classes.link} to="/dashboard/services">
             <ListItem button key="Volunteer register list">
               <ListItemIcon>
-                <Storage />
+                <ListIcon />
               </ListItemIcon>
               <ListItemText primary="Service list" />
             </ListItem>
@@ -170,6 +176,7 @@ const Dashboard = (props) => {
         <div className={classes.toolbar} />
 
         {props.children}
+        
       </main>
     </Box>
   );

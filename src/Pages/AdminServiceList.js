@@ -1,40 +1,48 @@
 import { Grid, Paper } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
-import { Dropdown, DropdownButton, Table } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 import Dashboard from '../Components/Dashboard/Dashboard';
+import Dropdown from 'react-dropdown';
+import 'react-dropdown/style.css';
 
-
+const options = [
+  { value: 'pending', label: 'pending' },
+  { value: 'onGoing', label: 'onGoing' },
+  { value: 'done', label: 'done' }
+]
 
 const AdminServiceList = () => {
 
   const [orders, setOrders] = useState([]);
   useEffect(() => {
 
-      fetch(`https://creative-agency-simple.herokuapp.com/allOrders`)
+      fetch(`http://localhost:8080/allOrders`)
       .then(response => response.json())
       .then(result => setOrders(result))
 
   }, [])
 
 
-    
-  const handleStatus = (id, e) => {
+const handleStatus = (event, id) => {
 
-    console.log(id, e);
-    
-    // const type = "Visited";
-    // fetch(`https://creative-agency-simple.herokuapp.com/updateSurviceById/${id}`, {
-    //     method: 'PATCH',
-    //     body: JSON.stringify({type: type}),
-    //     headers: {
-    //         'Content-type': 'application/json; charset=UTF-8',
-    //     }
-    // })
-    // .then(response => response.json())
-    // .then(data => console.log(data))
 
+    fetch(`http://localhost:8080/updateSurviceById/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({status: event.value}),
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+      if(data){
+        alert("You have successfully updated an order status")
+      }
+    })
 
 }
+const defaultOption = options[0];
+
 
 
     return (
@@ -66,20 +74,7 @@ const AdminServiceList = () => {
         <td>{order.service}</td>
         <td>{order.message}</td>
         <td>
-
-{/* <DropdownButton onSelect={handleStatus(order._id)} id="dropdown-basic-button" title="Dropdown button">
-  <Dropdown.Item>Status</Dropdown.Item>
-  <Dropdown.Item eventKey="pending">Pending</Dropdown.Item>
-  <Dropdown.Item eventKey="done">Done</Dropdown.Item>
-</DropdownButton> */}
-
-
-          <select onBlur={handleStatus(order._id)} name="status" id="status">
-            <option value="">Select</option>
-            <option value="Pending">Pending</option>
-            <option value="On going">On going</option>
-            <option value="Done">Done</option>
-          </select>
+          <Dropdown onChange={(e) => { handleStatus(e, `${order._id}`) }} options={options} value={defaultOption} placeholder="Select an option" />
         </td>
       </tr>)
     }

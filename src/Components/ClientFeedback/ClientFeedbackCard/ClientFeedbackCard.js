@@ -24,17 +24,19 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 const ClientFeedbackCard = (props) => {
-    const {name, company, image, description} = props.client;
+    const {name, company, userImage, description} = props.client;
 
     const classes = useStyles();
     return (
             <>
-            <Grid className={classes.root} item md={4}>
+            <Grid className={classes.root} item sm={6} md={4}>
+
+                        
                 <Card>
                     <CardHeader
                         avatar={
                             
-                            <Avatar className={classes.avatar} alt="Remy Sharp" src={`data:image/jpeg;base64,${image.img}`} />
+                            <Avatar className={classes.avatar} alt="Remy Sharp" src={userImage} />
                         }
                         title={name}
                         subheader={company}

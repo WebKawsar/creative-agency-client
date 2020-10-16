@@ -28,7 +28,7 @@ const ClientFeedback = () => {
     const [reviews, setReviews] = useState([]);
     useEffect(() => {
 
-        fetch("https://creative-agency-simple.herokuapp.com/reviews")
+        fetch("http://localhost:8080/reviews")
         .then(response => response.json())
         .then(data => setReviews(data))
 
@@ -45,6 +45,7 @@ const ClientFeedback = () => {
                 </Box>
                 <Box>
                     <Grid container spacing={3}>
+                    
                         {
                             reviews.map((client, index) => <ClientFeedbackCard client={client} key={index}></ClientFeedbackCard>)
                             

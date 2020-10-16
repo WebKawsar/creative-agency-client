@@ -22,7 +22,7 @@ const useStyles = makeStyles({
       color: "red",
     },
     submit: {
-      padding: "13px 60px",
+      padding: "18px 75px",
       border: "none",
       backgroundColor: "black",
       color: "white",
@@ -36,10 +36,10 @@ const useStyles = makeStyles({
       borderRadius: "5px",
     },
     uploadBtn: {
-      padding: "18px 60px",
+      padding: "14px 60px",
       border: "2px solid #77C69E",
       borderRadius: "5px",
-      margin: "14px 0 0 2%",
+      margin: "15px 0 0 2%",
       width: "48%",
       cursor: "pointer",
       backgroundColor: "#DEFFED",
@@ -59,25 +59,29 @@ const AddOrder = () => {
     const [service, setService] = useState({});
     useEffect(() => {
   
-      fetch(`https://creative-agency-simple.herokuapp.com/serviceById/${serviceId}`)
+      fetch(`http://localhost:8080/serviceById/${serviceId}`)
       .then(response => response.json())
       .then(result => setService(result))
   
     }, [])
 
 
+
     const { register, handleSubmit, errors } = useForm();
     const onSubmit = (data) => {
         
+
         const newData = data;
         newData.newImage = service.image;
+        newData.status = "pending";
+        newData.description = service.description;
 
         const jsonData = JSON.stringify(newData);
         const formData = new FormData();
         formData.append("image", data.image[0]);
         formData.append("data", jsonData);
   
-        fetch('https://creative-agency-simple.herokuapp.com/addOrder', {
+        fetch('http://localhost:8080/addOrder', {
             method: 'POST',
             body: formData
         })
@@ -104,7 +108,7 @@ const AddOrder = () => {
             <>
                 <Dashboard>
                     <Grid container>
-                    <Grid item md={6} sm={6}>
+                    <Grid item md={6} sm={12}>
                         <Box>
                         <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
                             

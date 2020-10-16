@@ -27,6 +27,10 @@ const useStyles = makeStyles({
     color: "black",
     fontWeight: "bold",
     textDecoration: "none",
+    "&:hover": {
+      textDecoration: "none",
+      color: "#3A4256"
+    }
   },
   copyrightSection: {
     textAlign: "center",
@@ -48,7 +52,7 @@ const Footer = () => {
         <Box className={classes.root}>
             <Container>
                 <Grid container>
-                    <Grid item md={6} sm={6}>
+                    <Grid item md={6} sm={12}>
                         <Box>
                         <h1>Let us handle your project, professionally.</h1>
                         <p>
@@ -58,7 +62,7 @@ const Footer = () => {
                         </p>
                         </Box>
                     </Grid>
-                    <Grid item md={6} sm={6}>
+                    <Grid item md={6} sm={12}>
                         <Box>
                         <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
                             <TextField

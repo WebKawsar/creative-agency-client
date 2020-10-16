@@ -1,7 +1,8 @@
 import { Box, Grid, makeStyles, TextField } from "@material-ui/core";
 import { CloudUpload } from "@material-ui/icons";
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
+import { UserContext } from "../../App";
 import Dashboard from "../Dashboard/Dashboard";
 
 const useStyles = makeStyles({
@@ -34,50 +35,37 @@ const useStyles = makeStyles({
     border: "none",
     display: "block",
     margin: "25px 0 0",
-    borderRadius: "4px"
-
-  }
-
-
+    borderRadius: "4px",
+  },
 });
 
 const Review = () => {
+  const [loggedInUser, setLoggedInUser] = useContext(UserContext);
 
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = (data) => {
-     console.log(data);
-    const jsonData = JSON.stringify(data);
-    const formData = new FormData();
-    formData.append("image", data.image[0]);
-    formData.append("data", jsonData);
 
-    fetch('https://creative-agency-simple.herokuapp.com/addReview', {
-        method: 'POST',
-        body: formData
+    fetch("http://localhost:8080/addReview", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
     })
-    .then(response => response.json())
-    .then(result => {
-
-        if(result){
-            
-            alert("You have successfully added an review")
+      .then((response) => response.json())
+      .then((result) => {
+        if (result) {
+          alert("You have successfully added an review");
         }
-
-    })
-
-
+      });
   };
-
-  const handleFile = () => {
-    document.getElementById('image').click()
-  }
 
   const classes = useStyles();
   return (
     <>
       <Dashboard>
         <Grid className={classes.root} container spacing={5}>
-          <Grid item md={6} sm={6}>
+          <Grid item md={6} sm={12}>
             <Box className={classes.container}>
               <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
                 <TextField
@@ -91,6 +79,7 @@ const Review = () => {
                   id="name"
                   type="text"
                   label="Your name"
+                  defaultValue={loggedInUser.name}
                   name="name"
                   FormHelperTextProps={{
                     className: classes.helperText,
@@ -135,27 +124,6 @@ const Review = () => {
                   }}
                   helperText={errors.description && errors.description.message}
                 />
-
-                <input
-                  style={{ display: "none" }}
-                  ref={register({
-                    required: "Your image is required",
-                  })}
-                  type="file"
-                  name="image"
-                  id="image"
-                />
-
-                <button
-                  className={classes.uploadBtn}
-                  type="button"
-                  onClick={handleFile}
-                >
-                  <CloudUpload></CloudUpload> Upload your image
-                </button>
-                {errors.image && (
-                  <p style={{ color: "red", marginTop: "15px" }}>{errors.image.message}</p>
-                )}
 
                 <input
                   className={classes.submit}

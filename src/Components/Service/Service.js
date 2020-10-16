@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Container, Grid } from "@material-ui/core";
 import ServiceCard from "../ServiceCard/ServiceCard";
+import Pagination from '@material-ui/lab/Pagination';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "30px",
     textAlign: "center",
     color: "#3A4256",
+    marginBottom: "50px"
   },
   highlight: {
     color: "#a4ca8d",
@@ -27,17 +29,25 @@ const useStyles = makeStyles((theme) => ({
 
 const Service = () => {
 
+
 const [services, setServices] = useState([]);
 useEffect(() => {
 
-    fetch("https://creative-agency-simple.herokuapp.com/services")
+    fetch("http://localhost:8080/services")
     .then(response => response.json())
     .then(data => setServices(data))
 
 }, []);
 
-  const classes = useStyles();
 
+const [page, setPage] = useState(1);
+const handleChange = (event, value) => {
+  setPage(value);
+};
+
+
+
+  const classes = useStyles();
   return (
     <>
       <Box className={classes.root}>
@@ -49,12 +59,14 @@ useEffect(() => {
             </h3>
           </Box>
           <Box>
-            <Grid container spacing={3}>
+            <Grid container spacing={5}>
+              
               {services.map(service => (
                 <ServiceCard service={service} key={service._id}></ServiceCard>
               ))}
             </Grid>
           </Box>
+
         </Container>
       </Box>
     </>

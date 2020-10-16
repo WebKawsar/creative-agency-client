@@ -45,7 +45,7 @@ const MakeAdmin = () => {
     const { register, handleSubmit, errors } = useForm();
     const onSubmit = (data) => {
   
-        fetch('https://creative-agency-simple.herokuapp.com/makeAdmin', {
+        fetch('http://localhost:8080/makeAdmin', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {

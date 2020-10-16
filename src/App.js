@@ -3,8 +3,6 @@ import './App.css';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from './Pages/Home';
 import Login from './Pages/Login';
-import ServiceList from './Components/ServiceList/ServiceList';
-import Review from './Components/Review/Review';
 import AdminServiceList from './Pages/AdminServiceList';
 import AddService from './Pages/AddService';
 import MakeAdmin from './Pages/MakeAdmin';
@@ -12,6 +10,8 @@ import AddOrder from './Pages/AddOrder';
 import PrivateRoute from './Components/PrivateRoute/PrivateRoute';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MainDashboard from './Pages/MainDashboard';
+import UserServiceList from './Pages/UserServiceList';
+import UserReview from './Pages/UserReview';
 
 
 
@@ -30,6 +30,7 @@ function App() {
               <Route path="/login">
                 <Login></Login>
               </Route>
+
               <PrivateRoute exact path="/dashboard">
                 <MainDashboard></MainDashboard>
               </PrivateRoute>
@@ -38,11 +39,11 @@ function App() {
                 <AddOrder></AddOrder>
               </PrivateRoute>
               <PrivateRoute path="/dashboard/services">
-                <ServiceList></ServiceList>
+                <UserServiceList></UserServiceList>
               </PrivateRoute>
-              <Route path="/dashboard/review">
-                <Review></Review>
-              </Route>
+              <PrivateRoute path="/dashboard/review">
+                <UserReview></UserReview>
+              </PrivateRoute>
 
 
 

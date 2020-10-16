@@ -8,7 +8,7 @@ const MainDashboard = () => {
     // const [isAdmin, setIsAdmin] = useState(false);
     useEffect(() => {
   
-      fetch(`https://creative-agency-simple.herokuapp.com/admin/${loggedInUser.email}`)
+      fetch(`http://localhost:8080/admin/${loggedInUser.email}`)
       .then(response => response.json())
       .then(data => {
         if(data){

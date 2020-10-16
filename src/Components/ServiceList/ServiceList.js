@@ -2,14 +2,16 @@ import { Box, Grid, makeStyles, Paper } from "@material-ui/core";
 import React, { useContext, useEffect, useState } from "react";
 import Dashboard from "../Dashboard/Dashboard";
 import { UserContext } from "../../App";
+import { Ripple } from "react-preloaders";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: "#F4F7FC",
-    height: "85vh",
+    minHeight: "85vh",
   },
   paper: {
     padding: "30px",
+    borderRadius: "20px",
   },
   serviceImg: {
     width: "100px",
@@ -23,12 +25,12 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
   },
   title: {
-    fontSize: "22px",
+    fontSize: "21px",
     margin: "23px 0 14px",
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   description: {
-    fontSize: "18px",
+    fontSize: "17px",
   },
 }));
 
@@ -36,7 +38,7 @@ const ServiceList = () => {
   const [loggedInUser, setLoggedInUser] = useContext(UserContext);
   const [orders, setOrders] = useState([]);
   useEffect(() => {
-    fetch(`https://creative-agency-simple.herokuapp.com/orderByUser/${loggedInUser.email}`)
+    fetch(`http://localhost:8080/orderByUser/${loggedInUser.email}`)
       .then((response) => response.json())
       .then((result) => setOrders(result));
   }, []);
@@ -46,8 +48,9 @@ const ServiceList = () => {
     <>
       <Dashboard>
         <Grid className={classes.root} container spacing={5}>
+          {orders.length === 0 && <Ripple />}
           {orders.map((order) => (
-            <Grid key={order._id} item sm={6}>
+            <Grid key={order._id} item md={6} sm={12}>
               <Paper className={classes.paper}>
                 <Box
                   display="flex"
@@ -59,11 +62,17 @@ const ServiceList = () => {
                     src={`data:image/png;base64,${order.newImage.img}`}
                     alt=""
                   />
-                  <button className={classes.statusBtn}>Pending</button>
+
+                  <button className={classes.statusBtn}>{order.status}</button>
                 </Box>
                 <Box>
                   <h3 className={classes.title}>{order.service}</h3>
-                  <p className={classes.description}>{order.message}</p>
+                  <p className={classes.description}>
+                    {
+                      order.description.length > 50 &&
+                      order.description.substring(0, 120 - 3) + "..."
+                    }
+                  </p>
                 </Box>
               </Paper>
             </Grid>
