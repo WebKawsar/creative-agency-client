@@ -35,51 +35,56 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ServiceList = () => {
+
   const [loggedInUser, setLoggedInUser] = useContext(UserContext);
   const [orders, setOrders] = useState([]);
+
   useEffect(() => {
+
     fetch(`http://localhost:8080/orderByUser/${loggedInUser.email}`)
       .then((response) => response.json())
       .then((result) => setOrders(result));
+
   }, []);
+
 
   const classes = useStyles();
   return (
-    <>
-      <Dashboard>
-        <Grid className={classes.root} container spacing={5}>
-          {orders.length === 0 && <Ripple />}
-          {orders.map((order) => (
-            <Grid key={order._id} item md={6} sm={12}>
-              <Paper className={classes.paper}>
-                <Box
-                  display="flex"
-                  justifyContent="space-between"
-                  alignItems="center"
-                >
-                  <img
-                    className={classes.serviceImg}
-                    src={`data:image/png;base64,${order.newImage.img}`}
-                    alt=""
-                  />
+          <>
+            <Dashboard>
+              <Grid className={classes.root} container spacing={5}>
+                {orders.length === 0 && <Ripple />}
+                {orders.map((order) => (
+                  <Grid key={order._id} item md={6} sm={12}>
+                    <Paper className={classes.paper}>
+                      <Box
+                        display="flex"
+                        justifyContent="space-between"
+                        alignItems="center"
+                      >
+                        <img
+                          className={classes.serviceImg}
+                          src={`data:image/png;base64,${order.newImage.img}`}
+                          alt=""
+                        />
 
-                  <button className={classes.statusBtn}>{order.status}</button>
-                </Box>
-                <Box>
-                  <h3 className={classes.title}>{order.service}</h3>
-                  <p className={classes.description}>
-                    {
-                      order.description.length > 50 &&
-                      order.description.substring(0, 120 - 3) + "..."
-                    }
-                  </p>
-                </Box>
-              </Paper>
-            </Grid>
-          ))}
-        </Grid>
-      </Dashboard>
-    </>
+                        <button className={classes.statusBtn}>{order.status}</button>
+                      </Box>
+                      <Box>
+                        <h3 className={classes.title}>{order.service}</h3>
+                        <p className={classes.description}>
+                          {
+                            order.description.length > 50 &&
+                            order.description.substring(0, 120 - 3) + "..."
+                          }
+                        </p>
+                      </Box>
+                    </Paper>
+                  </Grid>
+                ))}
+              </Grid>
+            </Dashboard>
+          </>
   );
 };
 

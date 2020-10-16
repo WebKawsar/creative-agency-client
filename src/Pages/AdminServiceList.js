@@ -1,96 +1,86 @@
-import { Grid, Paper } from '@material-ui/core';
-import React, { useEffect, useState } from 'react';
-import { Table } from 'react-bootstrap';
-import Dashboard from '../Components/Dashboard/Dashboard';
-import Dropdown from 'react-dropdown';
-import 'react-dropdown/style.css';
+import { Grid, Paper } from "@material-ui/core";
+import React, { useEffect, useState } from "react";
+import { Table } from "react-bootstrap";
+import Dashboard from "../Components/Dashboard/Dashboard";
+import Dropdown from "react-dropdown";
+import "react-dropdown/style.css";
 
 const options = [
-  { value: 'pending', label: 'pending' },
-  { value: 'onGoing', label: 'onGoing' },
-  { value: 'done', label: 'done' }
-]
+  { value: "pending", label: "pending" },
+  { value: "onGoing", label: "onGoing" },
+  { value: "done", label: "done" },
+];
 
 const AdminServiceList = () => {
-
   const [orders, setOrders] = useState([]);
   useEffect(() => {
+    fetch(`http://localhost:8080/allOrders`)
+      .then((response) => response.json())
+      .then((result) => setOrders(result));
+  }, []);
 
-      fetch(`http://localhost:8080/allOrders`)
-      .then(response => response.json())
-      .then(result => setOrders(result))
-
-  }, [])
-
-
-const handleStatus = (event, id) => {
-
-
+  const handleStatus = (event, id) => {
     fetch(`http://localhost:8080/updateSurviceById/${id}`, {
-        method: 'PATCH',
-        body: JSON.stringify({status: event.value}),
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8',
+      method: "PATCH",
+      body: JSON.stringify({ status: event.value }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data) {
+          alert("You have successfully updated an order status");
         }
-    })
-    .then(response => response.json())
-    .then(data => {
-      if(data){
-        alert("You have successfully updated an order status")
-      }
-    })
+      });
+  };
+  const defaultOption = options[0];
 
-}
-const defaultOption = options[0];
-
-
-
-    return (
-        <>
-            <Dashboard>
-                <Grid container>
-                    <Grid item sm={12} md={12}>
-                        <Paper>
-                          
-
-<Table striped bordered hover>
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Service</th>
-      <th>Project Details</th>
-      <th>Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    {
-      orders.map(order =>     
-      <tr key={order._id}>
-        <td>#</td>
-        <td>{order.name}</td>
-        <td>{order.email}</td>
-        <td>{order.service}</td>
-        <td>{order.message}</td>
-        <td>
-          <Dropdown onChange={(e) => { handleStatus(e, `${order._id}`) }} options={options} value={defaultOption} placeholder="Select an option" />
-        </td>
-      </tr>)
-    }
-  </tbody>
-</Table>
-
-
-
-
-
-                        </Paper>
-                    </Grid>
-                </Grid>
-            </Dashboard>
-        </>
-    );
+  return (
+    <>
+      <Dashboard>
+        <Grid container>
+          <Grid item sm={12} md={12}>
+            <Paper>
+              <Table striped bordered hover>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Service</th>
+                    <th>Project Details</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {orders.map((order, index) => (
+                    <tr key={order._id}>
+                      <td>{index + 1}</td>
+                      <td>{order.name}</td>
+                      <td>{order.email}</td>
+                      <td>{order.service}</td>
+                      <td>{order.message}</td>
+                      <td>
+                        <Dropdown
+                          onChange={(e) => {
+                            handleStatus(e, `${order._id}`);
+                          }}
+                          options={options}
+                          value={defaultOption}
+                          placeholder="Select an option"
+                        />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </Paper>
+          </Grid>
+        </Grid>
+      </Dashboard>
+    </>
+  );
 };
 
 export default AdminServiceList;

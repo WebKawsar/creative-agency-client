@@ -10,18 +10,15 @@ import Service from "../Components/Service/Service";
 
 const Home = () => {
 
-
   return (
-    <>
-
-
-      <HomeIntro></HomeIntro>
-      <OurClient></OurClient>
-      <Service></Service>
-      <Portfolio></Portfolio>
-      <ClientFeedback></ClientFeedback>
-      <Footer></Footer>
-    </>
+          <>
+            <HomeIntro></HomeIntro>
+            <OurClient></OurClient>
+            <Service></Service>
+            <Portfolio></Portfolio>
+            <ClientFeedback></ClientFeedback>
+            <Footer></Footer>
+          </>
   );
 };
 

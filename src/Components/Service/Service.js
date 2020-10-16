@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Box, Container, Grid } from "@material-ui/core";
 import ServiceCard from "../ServiceCard/ServiceCard";
-import Pagination from '@material-ui/lab/Pagination';
+
+
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,11 +26,12 @@ const useStyles = makeStyles((theme) => ({
   sliderImage: {
     width: "100%",
     height: "auto",
-  },
+  }
+
+
 }));
 
 const Service = () => {
-
 
 const [services, setServices] = useState([]);
 useEffect(() => {
@@ -37,39 +40,33 @@ useEffect(() => {
     .then(response => response.json())
     .then(data => setServices(data))
 
-}, []);
-
-
-const [page, setPage] = useState(1);
-const handleChange = (event, value) => {
-  setPage(value);
-};
-
+}, [services]);
 
 
   const classes = useStyles();
   return (
-    <>
-      <Box className={classes.root}>
-        <Container>
-          <Box className={classes.firstSection}>
-            <h3 className={classes.title}>
-              Provide awesome{" "}
-              <span className={classes.highlight}>services</span>
-            </h3>
-          </Box>
-          <Box>
-            <Grid container spacing={5}>
-              
-              {services.map(service => (
-                <ServiceCard service={service} key={service._id}></ServiceCard>
-              ))}
-            </Grid>
-          </Box>
-
-        </Container>
-      </Box>
-    </>
+          <>
+            <Box className={classes.root}>
+              <Container>
+                <Box className={classes.firstSection}>
+                  <h3 className={classes.title}>
+                    Provide awesome{" "}
+                    <span className={classes.highlight}>services</span>
+                  </h3>
+                </Box>
+                <Box>
+                  <Grid container spacing={5}>
+                    
+                    {
+                      services.map(service => (
+                      <ServiceCard service={service} key={service._id}></ServiceCard>
+                    ))
+                    }
+                  </Grid>
+                </Box>
+              </Container>
+            </Box>
+          </>
   );
 };
 

@@ -45,6 +45,10 @@ const ClientFeedbackCard = (props) => {
                     <CardContent>
                         <Typography variant="body2" color="textSecondary" component="p">
                             {description}
+                            {
+                            description.length > 3 &&
+                            description.substring(0, 120 - 3) + "..."
+                          }
                         </Typography>
                     </CardContent>
                 </Card>

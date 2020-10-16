@@ -53,58 +53,49 @@ const ServiceCard = (props) => {
   const { _id, title, description, image } = props.service;
   const classes = useStyles();
 
-
-
   const [proxy, set] = useSpring(() => ({
     xys: [0, 0, 1],
     config: { mass: 31, tension: 183, friction: 59 },
   }));
 
-
-
   return (
-    <>
-
-
-      <Grid className={classes.root} item sm={6} md={4}>
-      <animated.div
-        class="card"
-        onMouseMove={({ clientX: x, clientY: y }) => set({ xys: calc(x, y) })}
-        onMouseLeave={() => set({ xys: [0, 0, 1] })}
-        style={{ transform: proxy.xys.interpolate(trans) }}
-      >
-        <Link className={classes.link} to={`/dashboard/order/${_id}`}>
-          <Card className={classes.card}>
-            <img
-              className={classes.serviceImage}
-              src={`data:image/jpeg;base64,${image.img}`}
-              alt=""
-            />
-            <CardContent>
-              <Typography className={classes.title} variant="h5" component="h4">
-                {title}
-              </Typography>
-              <Typography
-                className={classes.paragraph}
-                variant="body2"
-                component="p"
+          <>
+            <Grid className={classes.root} item sm={6} md={4}>
+              <animated.div
+                class="card"
+                onMouseMove={({ clientX: x, clientY: y }) => set({ xys: calc(x, y) })}
+                onMouseLeave={() => set({ xys: [0, 0, 1] })}
+                style={{ transform: proxy.xys.interpolate(trans) }}
               >
-              
-                {description.length > 50 &&
-                  description.substring(0, 120 - 3) + "..."}
-              </Typography>
-            </CardContent>
-          </Card>
-        </Link>
-
-        </animated.div>
-      </Grid>
-
-
-    
-
-      
-    </>
+                <Link className={classes.link} to={`/dashboard/order/${_id}`}>
+                  <Card className={classes.card}>
+                    <img
+                      className={classes.serviceImage}
+                      src={`data:image/jpeg;base64,${image.img}`}
+                      alt=""
+                    />
+                    <CardContent>
+                      <Typography
+                        className={classes.title}
+                        variant="h5"
+                        component="h4"
+                      >
+                        {title}
+                      </Typography>
+                      <Typography
+                        className={classes.paragraph}
+                        variant="body2"
+                        component="p"
+                      >
+                        {description.length > 50 &&
+                          description.substring(0, 120 - 3) + "..."}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </animated.div>
+            </Grid>
+          </>
   );
 };
 

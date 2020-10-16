@@ -1,4 +1,4 @@
-import { Box, Grid, makeStyles } from "@material-ui/core";
+import { Grid, makeStyles } from "@material-ui/core";
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -9,20 +9,21 @@ const useStyles = makeStyles((theme) => ({
   clientLogo: {
     width: "150px",
     height: "auto",
-  },
+  }
+  
 }));
 
 const ClientLogo = ({ logo }) => {
   const classes = useStyles();
 
   return (
-    <>
-      <Grid item sm={4} md={2}>
-        <Link to="/home">
-          <img className={classes.clientLogo} src={logo.img} alt="" />
-        </Link>
-      </Grid>
-    </>
+          <>
+            <Grid item sm={4} md={2}>
+              <Link to="/home">
+                <img className={classes.clientLogo} src={logo.img} alt="" />
+              </Link>
+            </Grid>
+          </>
   );
 };
 

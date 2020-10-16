@@ -1,4 +1,4 @@
-import { Box, Container, Grid, makeStyles } from "@material-ui/core";
+import { Container, Grid } from "@material-ui/core";
 import React from "react";
 import ClientLogo from "../ClientLogo/ClientLogo";
 
@@ -11,23 +11,18 @@ const clientLogo = [
   { name: "Uber", img: "https://i.ibb.co/HDRJmDQ/uber.png" },
 ];
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    padding: "20px 0",
-    marginBottom: "100px",
-  },
-}));
 
 const OurClient = () => {
-  const classes = useStyles();
 
   return (
     <>
       <Container>
         <Grid container display="flex" alignItems="center" spacing={3}>
-          {clientLogo.map((logo, index) => (
+          {
+            clientLogo.map((logo, index) => (
             <ClientLogo logo={logo} key={index}></ClientLogo>
-          ))}
+          ))
+          }
         </Grid>
       </Container>
     </>

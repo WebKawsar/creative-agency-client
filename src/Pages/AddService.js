@@ -4,6 +4,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import Dashboard from "../Components/Dashboard/Dashboard";
 
+
+
 const useStyles = makeStyles({
   root: {
     backgroundColor: "#FBD062",
@@ -49,11 +51,15 @@ const useStyles = makeStyles({
     fontWeight: "bold",
     margin: "0"
   },
+
+
 });
 
 const AddService = () => {
+
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = (data) => {
+    
     const formData = new FormData();
     formData.append("image", data.image[0]);
     formData.append("description", data.description);

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -64,20 +64,8 @@ const useStyles = makeStyles((theme) => ({
 const Dashboard = (props) => {
 
   const [loggedInUser, setLoggedInUser] = useContext(UserContext);
-  // const [isAdmin, setIsAdmin] = useState(false);
-  // useEffect(() => {
-
-  //   fetch(`http://localhost:8080/admin/${loggedInUser.email}`)
-  //   .then(response => response.json())
-  //   .then(data => {
-  //     setIsAdmin(!isAdmin)
-  //   })
-
-
-  // }, [])
-
-
   const classes = useStyles();
+  
   return (
     <Box className={classes.root}>
       <CssBaseline />

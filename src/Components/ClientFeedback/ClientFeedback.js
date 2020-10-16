@@ -32,28 +32,25 @@ const ClientFeedback = () => {
         .then(response => response.json())
         .then(data => setReviews(data))
 
-
-
     }, [])
 
     const classes = useStyles();
     return (
-        <Container>
-            <Box className={classes.root}>
-                <Box className={classes.firstSection}>
-                    <h3 className={classes.title}>Clients <span className={classes.highlight}>Feedback</span></h3>
+            <Container>
+                <Box className={classes.root}>
+                    <Box className={classes.firstSection}>
+                        <h3 className={classes.title}>Clients <span className={classes.highlight}>Feedback</span></h3>
+                    </Box>
+                    <Box>
+                        <Grid container spacing={3}>
+                            {
+                                reviews.map((client, index) => <ClientFeedbackCard client={client} key={index}></ClientFeedbackCard>)
+                                
+                            }
+                        </Grid>
+                    </Box>
                 </Box>
-                <Box>
-                    <Grid container spacing={3}>
-                    
-                        {
-                            reviews.map((client, index) => <ClientFeedbackCard client={client} key={index}></ClientFeedbackCard>)
-                            
-                        }
-                    </Grid>
-                </Box>
-            </Box>
-        </Container>
+            </Container>
     );
 };
 
