@@ -62,7 +62,7 @@ const ServiceCard = (props) => {
           <>
             <Grid className={classes.root} item sm={6} md={4}>
               <animated.div
-                class="card"
+                className="card"
                 onMouseMove={({ clientX: x, clientY: y }) => set({ xys: calc(x, y) })}
                 onMouseLeave={() => set({ xys: [0, 0, 1] })}
                 style={{ transform: proxy.xys.interpolate(trans) }}
